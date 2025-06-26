@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Awkwords - word generator</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-language" content="en">
+    <meta name="description"
+        content="An online random word generator, especially suited for making words for conlangs (constructed languages). Rendering the words is based on a freely editable pattern, which allows the user to easily configure the generator for various requirements.">
+    <link rel="stylesheet" href="index.css" type="text/css" media="all">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/ico">
+</head>
+
+<body>
+    <div class="heading">
+        <h1 class="h_left">Awkwords - Word Generator</h1>
+        <div class="h_right">
+        </div>
+        <div class="clear">&nbsp;</div>
+    </div>
+
+    <div id="spsec">
+        <table class="sptab">
+            <colgroup>
+                <col>
+                <col width="100%">
+            </colgroup>
+            <tbody id="sp">
+                <tr>
+                    <th id="sp_label" colspan="2"><b>subpatterns:</b></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="psec">
+        <label for="pattern"><b>pattern:</b> </label><input name="pattern" id="pattern" type="text"
+            value="CV(CV)(N)" size="64">
+    </div>
+
+    <div id="gensec"><label for="numw" title="number of words to generate">words: </label>
+        <input name="numw" id="numw" type="text" size="4" maxlength="4" value="100">
+
+        <input name="nle" id="nle" class="checkbox" type="checkbox">
+        <label class="checkbox" for="nle" title="put each word on a separate line">new line each</label>
+
+        <input name="filterdup" id="filterdup" class="checkbox" type="checkbox">
+        <label class="checkbox" for="filterdup" title="make the words different from each other">filter duplicates</label>
+
+        <input type="button" value="Generate" title="generate the words!" style="margin-left: 30px"
+            onclick="add_words(document.getElementById('nle').checked, document.getElementById('filterdup').checked)">
+    </div>
+
+    <div id="slsec">
+        <input type="button" id="saver" value="Save..." title="save these settings to your computer">
+        <input type="button" id="loader" value="Open &gt;" title="load saved settings from your computer">
+    </div>
+    
+    <input type="hidden" name="filename" value="">
+    <div class="clear">&nbsp;</div>
+    <div id="loadsec">
+        <label for="file">file: </label><input name="file" id="file" type="file">
+        <input name="submit" id="openbutton" type="submit" value="Open" style="margin-left: 20px"
+            title="open the selected file">
+    </div>
+    
+    <div id="outputsec">
+        <input id="selectbutton" type="button" value="Select all" onclick="select_all()">
+        <div id="words"></div>
+        <div id="stats"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/index.js"></script>
+</body>
+
+</html>
