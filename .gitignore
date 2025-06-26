@@ -1,0 +1,8 @@
+node_modules/
+*.js
+
+# minimal server for testing, doesn't need to be tracked
+src/server.ts
+src/public/not_found.html
+package-lock.json
+package.json
