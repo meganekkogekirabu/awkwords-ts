@@ -242,17 +242,17 @@ function select_all() {
     selection.addRange(range);
 }
 
-let warnings: any[] = [];
+let warnings: Record<string, boolean> = {};
 let stats: Statistics = {};
 
 function warn(text: string) {
     // fixme: is it necessary to check this every time? maybe add better parser logic
-    if (warnings.includes(text)) return;
+    if (warnings[text]) return;
 
     const warning = document.createElement("div");
     warning.innerHTML = "warning: " + text;
     warning.className = "warning";
-    warnings.push(text);
+    warnings[text] = true;
 
     document.getElementById("outputsec")?.prepend(warning);
 }
@@ -267,6 +267,7 @@ function gen_words() {
         const pattern = config.r;
 
         const sets: Record<string | number, string[]> = {}
+
         for (const key in config) {
             if (key !== "r" && key !== "n") {
                 sets[key] = config[key].split("/");
@@ -303,6 +304,24 @@ function gen_words() {
 
                     i++;
                     result += quoted;
+                } else if (char === "[") {
+                    i++;
+                    let group = "";
+
+                    while (i < pattern.length && pattern[i] !== "]") {
+                        if (sets[pattern[i]]) {
+                            group += random(pattern[i]);
+                        } else {
+                            group += pattern[i];
+                        }
+                        i++;
+                    }
+
+                    i++;
+
+                    const n = `_${i}`;
+                    sets[n] = group.split("/");
+                    result += random(n);
                 } else if (char === "(") {
                     let group = "";
                     let depth = 1;
@@ -340,8 +359,16 @@ function gen_words() {
     return results;
 }
 
-function filter_duplicates(arr: Iterable<unknown> | null | undefined): string[] {
-    return [...new Set(arr)] as string[];
+function filter_duplicates(arr: string[]) {
+    var ret: string[] = [];
+
+    arr.forEach(el => {
+        if (!ret.includes(el)) {
+            ret.push(el);
+        }
+    });
+
+    return ret;
 }
 
 function add_words(newline: any, filter: any) {
@@ -403,14 +430,25 @@ function count_outputs() {
                 while (i < pattern.length && depth > 0) {
                     if (pattern[i] === "(") depth++;
                     else if (pattern[i] === ")") depth--;
-                    if (depth > 0) group += pattern[i];
+                    group += pattern[i];
                     i++;
                 }
 
-                const included = count(group);
-                const excluded = 1;
+                total *= count(group) + 1;
+            } else if (char === "[") {
+                let group = "";
+                i++;
 
-                total *= (included + excluded);
+                while (i < pattern.length && pattern[i] !== "]") {
+                    if (sets[pattern[i]]) {
+                        group += sets[pattern[i]].join("/");
+                    } else {
+                        group += pattern[i];
+                    }
+                    i++;
+                }
+
+                total *= group.split("/").length;
             } else if (/[A-Z]/.test(char)) {
                 const options = sets[char];
                 // just ignore invalid sets
