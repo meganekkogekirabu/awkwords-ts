@@ -45,13 +45,6 @@ h1.h_left {
     color: white;
 }
 
-#help {
-    padding-left: 34px;
-    background-image: url("assets/help.gif");
-    background-repeat: no-repeat;
-    background-position: left center;
-}
-
 #counter {
     display: block;
     float: right;
@@ -176,3 +169,10 @@ label.checkbox {
     height: 0px;
     line-height: 0px;
 }
+
+#github {
+    padding-left: 34px;
+    background-image: url("assets/github.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+}   
