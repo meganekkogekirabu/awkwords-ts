@@ -34,8 +34,8 @@
     </div>
 
     <div id="psec">
-        <label for="pattern"><b>pattern:</b> </label><input name="pattern" id="pattern" type="text"
-            value="CV(CV)(N)" size="64">
+        <label for="pattern"><b>pattern:</b> </label><input name="pattern" id="pattern" type="text" value="CV(CV)(N)"
+            size="64">
     </div>
 
     <div id="gensec"><label for="numw" title="number of words to generate">words: </label>
@@ -45,7 +45,8 @@
         <label class="checkbox" for="nle" title="put each word on a separate line">new line each</label>
 
         <input name="filterdup" id="filterdup" class="checkbox" type="checkbox">
-        <label class="checkbox" for="filterdup" title="make the words different from each other">filter duplicates</label>
+        <label class="checkbox" for="filterdup" title="make the words different from each other">filter
+            duplicates</label>
 
         <input type="button" value="Generate" title="generate the words!" style="margin-left: 30px"
             onclick="add_words(document.getElementById('nle').checked, document.getElementById('filterdup').checked)">
@@ -55,7 +56,7 @@
         <input type="button" id="saver" value="Save..." title="save these settings to your computer">
         <input type="button" id="loader" value="Open &gt;" title="load saved settings from your computer">
     </div>
-    
+
     <input type="hidden" name="filename" value="">
     <div class="clear">&nbsp;</div>
     <div id="loadsec">
@@ -63,7 +64,7 @@
         <input name="submit" id="openbutton" type="submit" value="Open" style="margin-left: 20px"
             title="open the selected file">
     </div>
-    
+
     <div id="outputsec">
         <input id="selectbutton" type="button" value="Select all" onclick="select_all()">
         <div id="words"></div>

@@ -124,12 +124,12 @@ function get_config() {
         if (!value) return "";
         return value;
     }
-    
+
     var data: Configuration = {
         n: get_value("numw"),
         r: get_value("pattern"),
     };
-    
+
     for (let i = 0; i < sprow_count - 1; i++) {
         const name = get_value(`sc_select${i}`);
         const value = get_value(`sc_input${i}`);
@@ -151,7 +151,7 @@ function config_blob(data: Configuration) {
         content += `\n${k}:${v}`;
     }
 
-    return new Blob([content], {type: "text/plain"});
+    return new Blob([content], { type: "text/plain" });
 }
 
 function parse_config(content: string) {
@@ -345,7 +345,7 @@ function filter_duplicates(arr: Iterable<unknown> | null | undefined): string[] 
 }
 
 function add_words(newline: any, filter: any) {
-    document.querySelectorAll(".warning").forEach(e => {e.remove()});
+    document.querySelectorAll(".warning").forEach(e => { e.remove() });
 
     const start = performance.now();
 
