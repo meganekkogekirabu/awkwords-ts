@@ -2,6 +2,8 @@
 
 This is a clone of [Awkwords](https://github.com/nai888/awkwords) written in TypeScript. It is run entirely on the client side, so it can be added to static hosting sites like Neocities, and it runs about 140 times faster on average.
 
+A live demo can be found [here](https://choi.nekoweb.org/awkwords.html).
+
 
 ## Setup
 
