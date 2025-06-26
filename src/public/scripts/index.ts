@@ -161,7 +161,7 @@ function parse_config(content: string) {
     if (!content.startsWith("#awkwords-ts"))
         throw new Error("parse_config did not receive a valid awkwords-ts rules file");
 
-    for (const match of content.matchAll(/([nrA-Z]):(.+)/g)) {
+    for (const match of Array.from(content.matchAll(/([nrA-Z]):(.+)/g))) {
         const [_, k, v] = match;
         ret[k] = v;
     }
@@ -181,20 +181,15 @@ function load_config(data: Configuration) {
 
     const { n, r, ...subpatterns } = data;
 
+    document.querySelectorAll(".sc_row").forEach(row => {row.remove()});
+
     let i = 0;
-    for (const [name, value] of Object.entries(subpatterns)) {
-        const select = document.getElementById(`sc_select${i}`);
-        const input = document.getElementById(`sc_input${i}`);
-
-        if (select && input) {
-            select.value = name;
-            input.value = value;
-        } else {
-            console.warn(`No subpattern row for index ${i}, cannot set "${name}".`);
-        }
-
+    for (const [n, v] of Object.entries(subpatterns)) {
+        new_sprow(v, n);
         i++;
     }
+
+    new_sprow();
 }
 
 document.getElementById("sp")?.addEventListener("input", e => {
