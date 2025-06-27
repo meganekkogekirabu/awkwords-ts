@@ -266,6 +266,15 @@ function gen_words() {
         for (const key in config) {
             if (key !== "r" && key !== "n") {
                 sets[key] = config[key].split("/");
+
+                sets[key].forEach((el, i) => {
+                    const match = el.match(/^(.+?)\*(\d+)$/);
+                    if (match) {
+                        const sp = match[1];
+                        const count = Number(match[2]);
+                        sets[key].splice(i, 1, ...Array(count).fill(sp));
+                    }
+                });
             }
         }
 
@@ -355,15 +364,7 @@ function gen_words() {
 }
 
 function filter_duplicates(arr: string[]) {
-    var ret: string[] = [];
-
-    arr.forEach(el => {
-        if (!ret.includes(el)) {
-            ret.push(el);
-        }
-    });
-
-    return ret;
+    return arr.filter((e, i, a) => a.indexOf(e) === i);
 }
 
 function add_words(newline: any, filter: any) {
@@ -407,12 +408,22 @@ function count_outputs() {
     for (const key in config) {
         if (key !== "r" && key !== "n") {
             sets[key] = config[key].split("/");
+
+            sets[key].forEach((el, i) => {
+                const match = el.match(/^(.+?)\*(\d+)$/);
+                if (match) {
+                    const sp = match[1];
+                    const count = Number(match[2]);
+                    sets[key].splice(i, 1, ...Array(count).fill(sp));
+                }
+            });
         }
     }
 
     function count(pattern: string | any[]) {
         let total = 1;
         let i = 0;
+        var seen: string[] = [];
 
         while (i < pattern.length) {
             const char = pattern[i];
@@ -445,7 +456,7 @@ function count_outputs() {
 
                 total *= group.split("/").length;
             } else if (/[A-Z]/.test(char)) {
-                const options = sets[char];
+                const options = filter_duplicates(sets[char]); // deduplicate before counting
                 // just ignore invalid sets
                 total *= options?.length ?? 1;
                 i++;
