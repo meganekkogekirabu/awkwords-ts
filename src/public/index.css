@@ -61,16 +61,6 @@ h1.h_left {
     border: dashed gray 1px;
 }
 
-.error {
-    padding: 10px 10px 10px 37px;
-    background-image: url("assets/error.png");
-    background-repeat: no-repeat;
-    background-position: 3px 5px;
-    margin: 10px;
-    background-color: #ECEEF0;
-    border: dashed gray 1px;
-}
-
 .unmwarnlist {
     list-style-type: none;
 }
